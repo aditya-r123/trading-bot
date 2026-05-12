@@ -7,7 +7,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 ENV_FILE="$ROOT/.env"
-FALLBACK="$ROOT/DAILY-SUMMARY.md"
+FALLBACK="$ROOT/clickup-fallback.log"
 
 if [[ -f "$ENV_FILE" ]]; then
   set -a
@@ -31,7 +31,7 @@ stamp="$(date '+%Y-%m-%d %H:%M %Z')"
 
 if [[ -z "${CLICKUP_API_KEY:-}" || -z "${CLICKUP_WORKSPACE_ID:-}" || -z "${CLICKUP_CHANNEL_ID:-}" ]]; then
   printf "\n---\n## %s (fallback — ClickUp not configured)\n%s\n" "$stamp" "$msg" >> "$FALLBACK"
-  echo "[clickup fallback] appended to DAILY-SUMMARY.md"
+  echo "[clickup fallback] appended to clickup-fallback.log"
   echo "$msg"
   exit 0
 fi
